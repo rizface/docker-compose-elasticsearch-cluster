@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  node1:
+    image: elasticsearch:8.4.1
+    container_name: node1
+    ports: 
+      - "9201:9200"
+      - "9301:9300"
+    environment:
+      - "node.name=node1"
+      - "bootstrap.memory_lock=true"
+      - "discovery.seed_hosts=node2,node3"
+      - "cluster.name=docker-es-cluster"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "xpack.security.enabled=false"
+      - "cluster.initial_master_nodes=node1,node2,node3"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+  node2:
+    image: elasticsearch:8.4.1
+    container_name: node2
+    ports: 
+      - "9202:9200"
+      - "9302:9300"
+    environment:
+      - "node.name=node2"
+      - "bootstrap.memory_lock=true"
+      - "discovery.seed_hosts=node1,node3"
+      - "cluster.name=docker-es-cluster"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "xpack.security.enabled=false"
+      - "cluster.initial_master_nodes=node1,node2,node3"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+  node3:
+    image: elasticsearch:8.4.1
+    container_name: node3
+    ports: 
+      - "9203:9200"
+      - "9303:9300"
+    environment:
+      - "node.name=node3"
+      - "bootstrap.memory_lock=true"
+      - "discovery.seed_hosts=node1,node2"
+      - "cluster.name=docker-es-cluster"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "xpack.security.enabled=false"
+      - "cluster.initial_master_nodes=node1,node2,node3"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+  node4:
+    image: elasticsearch:8.4.1
+    container_name: node4
+    ports: 
+      - "9204:9200"
+      - "9304:9300"
+    environment:
+      - "node.name=node4"
+      - "bootstrap.memory_lock=true"
+      - "discovery.seed_hosts=node1,node2,node3"
+      - "cluster.name=docker-es-cluster"
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "xpack.security.enabled=false"
+      - "cluster.initial_master_nodes=node1,node2,node3"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
